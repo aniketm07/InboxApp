@@ -11,8 +11,8 @@
 	<groupId>io.javabrains</groupId>
 	<artifactId>inbox-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>github-auth-template</name>
-	<description>Demo project for Spring Boot</description>
+	<name>inbox-app</name>
+	<description>Demo project for Spring Boot Inbox App</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -56,6 +56,10 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-cassandra</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -30,6 +30,7 @@ target/
 .DS_Store
 .mvn/
 
+connect.zip
 ### IntelliJ IDEA ###
 .idea
 *.iws
