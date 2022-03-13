@@ -31,6 +31,6 @@ Non Functional Requirements
 ![img.png](images/img.png)
 
 # Physical Data Model
-![img_1.png](images/img_1.png)
+![img.png](images/img1.png)
 
 
