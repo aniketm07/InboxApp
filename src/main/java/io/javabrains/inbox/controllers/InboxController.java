@@ -1,5 +1,7 @@
 package io.javabrains.inbox.controllers;
 
+import io.javabrains.inbox.emaillist.EmailListItem;
+import io.javabrains.inbox.emaillist.EmailListItemService;
 import io.javabrains.inbox.folders.Folder;
 import io.javabrains.inbox.folders.FolderRepository;
 import io.javabrains.inbox.folders.FolderService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,25 +20,33 @@ import java.util.List;
 public class InboxController {
 
     @Autowired
-    private FolderRepository folderRepository;
+    private InboxHelper helper;
     @Autowired
     private FolderService folderService;
+    @Autowired
+    private EmailListItemService emailListItemService;
 
     @GetMapping(value = "/")
-    public String homePage(@AuthenticationPrincipal OAuth2User principal, Model model){
+    public String homePage(@AuthenticationPrincipal OAuth2User principal, Model model, @RequestParam(required = false) String folder){
         if(principal==null || !StringUtils.hasText(principal.getAttribute("login"))){
             return "index";
         }
         String userId = principal.getAttribute("login");
-        // Fetching default folders for the view
-        List<Folder> defaultFolders =  folderService.fetchDefaultFolder(userId);
 
-        // Fetching user specific folders for the view
-        List<Folder> userFolders =  folderRepository.findAllByUserId(userId);
-        if(userFolders!=null) {
-            defaultFolders.addAll(userFolders);
+        // Fetching Folders for the view
+        helper.getFolders(model, folderService, userId);
+
+        // Fetching emails for user and folder
+        String folderLabel;
+        if(!StringUtils.hasText(folder)){
+            folderLabel = "Inbox";
+        }else {
+            folderLabel = folder;
         }
-        model.addAttribute("defaultFolders", defaultFolders);
+        List<EmailListItem> emailListItems = emailListItemService.findAllByKey_UserIdAndKey_Label(userId, folderLabel);
+        model.addAttribute("emailListOfFolder", emailListItems);
+        model.addAttribute("folderLabel", folderLabel);
         return "inboxpage";
     }
+
 }
