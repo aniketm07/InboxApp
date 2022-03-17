@@ -62,19 +62,20 @@
         <div class="card">
             <div class="card-header">Create New Email</div>
             <div class="card-body">
-                <form>
+                <form th:action="@{/send}" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <div class="mb-3">
                         <label for="toIds" class="form-label">To</label>
-                        <input th:value="${replyToIds}" type="text" class="form-control" id="toIds">
+                        <input th:value="${replyToIds}" type="text" class="form-control" id="toIds" name="toIds">
                         <div id="toIdHelp" class="form-text">Enter recipients Ids</div>
                     </div>
                     <div class="mb-3">
                         <label for="subject" class="form-label">Subject</label>
-                        <input type="text" class="form-control" id="subject">
+                        <input type="text" class="form-control" id="subject" name="subject">
                     </div>
                     <div class="mb-3">
                         <label for="body" class="form-label">Body</label>
-                        <textarea class="form-control" id="body" rows="3"></textarea>
+                        <textarea class="form-control" id="body" name="body" rows="3" ></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send</button>
                 </form>
