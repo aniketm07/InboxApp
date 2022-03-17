@@ -2,7 +2,6 @@ package io.javabrains.inbox.controllers;
 
 import io.javabrains.inbox.email.Email;
 import io.javabrains.inbox.email.EmailService;
-import io.javabrains.inbox.emaillist.EmailListItemService;
 import io.javabrains.inbox.folders.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.UUID;
 
@@ -33,15 +31,17 @@ public class EmailController {
             return "index";
         }
         String userId = principal.getAttribute("login");
+        model.addAttribute("userId", userId);
         // Fetching Folders for the view
         helper.getFolders(model, folderService, userId);
+
         Email email = emailService.findById(id);
         if(email==null){
-            return "inboxpage";
+            return "inbox-page";
         }
-        model.addAttribute("email",email);
+        model.addAttribute("email", email);
         String toIds = String.join(", ", email.getTo());
-        model.addAttribute("toIds",toIds);
-        return "emailpage";
+        model.addAttribute("toIds", toIds);
+        return "email-page";
     }
 }
