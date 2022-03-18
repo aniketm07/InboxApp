@@ -1,6 +1,5 @@
 package io.javabrains.inbox.controllers;
 
-import io.javabrains.inbox.email.Email;
 import io.javabrains.inbox.email.EmailService;
 import io.javabrains.inbox.folders.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;

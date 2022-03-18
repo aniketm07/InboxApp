@@ -36,12 +36,8 @@ public class InboxController {
         helper.getFolders(model, folderService, userId);
 
         // Fetching emails for user and folder
-        String folderLabel;
-        if(!StringUtils.hasText(folder)){
-            folderLabel = "Inbox";
-        }else {
-            folderLabel = folder;
-        }
+        String folderLabel = !StringUtils.hasText(folder) ? "Inbox" : folder;
+
         List<EmailListItem> emailListItems = emailListItemService.findAllByKey_UserIdAndKey_Label(userId, folderLabel);
         model.addAttribute("emailListOfFolder", emailListItems);
         model.addAttribute("folderLabel", folderLabel);

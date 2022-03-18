@@ -5,9 +5,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class EmailListItemService {
@@ -18,11 +16,31 @@ public class EmailListItemService {
 
     public List<EmailListItem> findAllByKey_UserIdAndKey_Label(String userId, String label) {
         List<EmailListItem> emailListItems = emailListItemRepository.findAllByKey_UserIdAndKey_Label(userId, label);
-        emailListItems.forEach(email -> {
-           UUID uuid = email.getKey().getTimeUUID();
-           Date date =  new Date(Uuids.unixTimestamp(uuid));
-           email.setAgoTimeString(prettyTime.format(date));
-        });
+        prettyTime(emailListItems);
         return emailListItems;
+    }
+
+    public EmailListItem findAllByKey(EmailListItemKey key){
+        Optional<EmailListItem> emailListItems = emailListItemRepository.findById(key);
+        if(emailListItems.isPresent()) {
+            prettyTime(List.of(emailListItems.get()));
+            return emailListItems.get();
+        }
+        return null;
+    }
+
+    public void updateEmailListItem(EmailListItem emailListItem){
+        emailListItemRepository.save(emailListItem);
+    }
+
+    /*
+        Pretty the time in moments ago format
+     */
+    private void prettyTime(List<EmailListItem> emailListItems) {
+        emailListItems.forEach(email -> {
+            UUID uuid = email.getKey().getTimeUUID();
+            Date date =  new Date(Uuids.unixTimestamp(uuid));
+            email.setAgoTimeString(prettyTime.format(date));
+        });
     }
 }

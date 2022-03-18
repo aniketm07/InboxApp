@@ -13,7 +13,7 @@ public class FolderService {
     private FolderRepository folderRepository;
 
     public List<Folder> fetchDefaultFolder(String userId) {
-        return Arrays.asList(new Folder(userId, "Inbox", "blue"), new Folder(userId, "Sent Items", "green"), new Folder(userId, "Important", "yellow"));
+        return Arrays.asList(new Folder(userId, "Inbox", "blue", 0), new Folder(userId, "Sent Items", "green", 0), new Folder(userId, "Important", "yellow", 0));
     }
 
     public List<Folder> findAllByUserId(String userId) {

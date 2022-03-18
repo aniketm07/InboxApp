@@ -8,6 +8,7 @@ import io.javabrains.inbox.emaillist.EmailListItemKey;
 import io.javabrains.inbox.emaillist.EmailListItemRepository;
 import io.javabrains.inbox.folders.Folder;
 import io.javabrains.inbox.folders.FolderRepository;
+import io.javabrains.inbox.folders.UnreadEmailStatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,11 +29,12 @@ import java.util.Arrays;
 public class InboxApplication {
 
     @Autowired
-    FolderRepository folderRepository;
+    UnreadEmailStatsRepository unreadEmailStatsRepository;
     @Autowired
     EmailListItemRepository emailListItemRepository;
     @Autowired
     EmailRepository emailRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(InboxApplication.class, args);
@@ -44,16 +46,17 @@ public class InboxApplication {
 //		return principal.getAttribute("name");
 //	}
 
-    @PostConstruct
-    public void init() {
-        for (int i = 0; i < 10; i++) {
-            EmailListItem emailListItem  = new EmailListItem(new EmailListItemKey("aniketm07", "Inbox", Uuids.timeBased()),
-                    Arrays.asList("aniketm07","riasingh"), "TestDemo" + i, true,"");
-            emailListItemRepository.save(emailListItem);
-            emailRepository.save(new Email(emailListItem.getKey().getTimeUUID(),emailListItem.getTo(),
-                    "aniketm07", emailListItem.getSubject(), "BODY"+i));
-        }
-    }
+//    @PostConstruct
+//    public void init() {
+//        for (int i = 0; i < 10; i++) {
+//            EmailListItem emailListItem  = new EmailListItem(new EmailListItemKey("aniketm07", "Inbox", Uuids.timeBased()),
+//                    Arrays.asList("aniketm07","riasingh"), "TestDemo" + i, true,"");
+//            emailListItemRepository.save(emailListItem);
+//            emailRepository.save(new Email(emailListItem.getKey().getTimeUUID(),emailListItem.getTo(),
+//                    "aniketm07", emailListItem.getSubject(), "BODY"+i));
+//            unreadEmailStatsRepository.incrementUnreadCounter("aniketm07", "Inbox");
+//        }
+//    }
 
     @Bean
     public CqlSessionBuilderCustomizer sessionBuilderCustomizer(DataStaxAstraProperties astraProperties) {
