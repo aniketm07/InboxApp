@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
 
@@ -25,7 +26,6 @@ public class EmailController {
     private FolderService folderService;
     @Autowired
     private EmailService emailService;
-
 
     @GetMapping(value = "/emails/{id}")
     public String emailView(@AuthenticationPrincipal OAuth2User principal, Model model, @PathVariable("id") UUID id, @RequestParam(required = false) String folder) {
@@ -49,5 +49,4 @@ public class EmailController {
         model.addAttribute("toIds", toIds);
         return "email-page";
     }
-
 }

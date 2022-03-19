@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,11 +28,11 @@ public class InboxHelper {
 
         // Fetching default folders for the view
         List<Folder> defaultFolders = folderService.fetchDefaultFolder(userId);
-
+        List<Folder> finalList = new ArrayList<>(new ArrayList<>(defaultFolders));
         // Fetching user specific folders for the view
         List<Folder> userFolders = folderService.findAllByUserId(userId);
-        if (userFolders != null) {
-            defaultFolders.addAll(userFolders);
+        if (userFolders != null && !userFolders.isEmpty()) {
+            finalList.addAll(new ArrayList<>(userFolders));
         }
 
         // Fetching unread stats of all the folders for the given UserId
@@ -44,7 +45,7 @@ public class InboxHelper {
             optional.ifPresent(unreadEmailStats -> folder.setUnreadCount(unreadEmailStats.getUnreadCount()));
         });
 
-        model.addAttribute("defaultFolders", defaultFolders);
+        model.addAttribute("defaultFolders", finalList);
     }
 
     /*

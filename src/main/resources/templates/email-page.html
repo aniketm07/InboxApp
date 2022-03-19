@@ -78,6 +78,27 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a th:href="@{'/compose/?to=' + ${email.from}}" class="btn btn-primary me-md-2" type="button">Reply</a>
                     <a th:href="@{'/compose/?to=' + ${toIds} + ', ' + ${email.from}}" class="btn btn-primary" type="button">Reply All</a>
+                    <button data-bs-toggle="modal" data-bs-target="#moveFolderModal" class="btn btn-primary me-md-2" type="button">Move Email</button>
+                </div>
+                <div class="modal fade" id="moveFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="moveFolder">Move Folder</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="btn-toolbar" role="toolbar" aria-label="Folder Groups">
+                                    <div th:each="folder : ${defaultFolders}" class="btn-group mr-2" role="group" aria-label="Folder Group">
+                                        <a class="btn btn-light" th:text="${folder.label}"></a>
+                                    </div>
+                                </div>
+<!--                                <button  type="button" class=""></button>-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

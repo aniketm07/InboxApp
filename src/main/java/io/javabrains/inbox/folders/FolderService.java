@@ -19,4 +19,8 @@ public class FolderService {
     public List<Folder> findAllByUserId(String userId) {
         return folderRepository.findAllByUserId(userId);
     }
+
+    public void saveFolder(Folder folder) {
+        folderRepository.save(folder);
+    }
 }
