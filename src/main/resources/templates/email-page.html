@@ -92,7 +92,7 @@
                             <div class="modal-body">
                                 <div class="btn-toolbar" role="toolbar" aria-label="Folder Groups">
                                     <div th:each="folder : ${defaultFolders}" class="btn-group mr-2" role="group" aria-label="Folder Group">
-                                        <a class="btn btn-light" th:text="${folder.label}"></a>
+                                        <a th:href="@{'/moveEmail/' + ${email.id} + '/?folder=' + ${folder.label} +'&curfolder=' + ${folderName}}" class="btn btn-light" th:text="${folder.label}"></a>
                                     </div>
                                 </div>
 <!--                                <button  type="button" class=""></button>-->

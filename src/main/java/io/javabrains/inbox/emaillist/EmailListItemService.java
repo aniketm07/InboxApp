@@ -29,6 +29,14 @@ public class EmailListItemService {
         return null;
     }
 
+    public void deleteEmailListItem(EmailListItem item){
+        emailListItemRepository.delete(item);
+    }
+
+    public void addEmailListItem(EmailListItem item){
+        emailListItemRepository.save(item);
+    }
+
     public void updateEmailListItem(EmailListItem emailListItem){
         emailListItemRepository.save(emailListItem);
     }
