@@ -2,6 +2,23 @@
 InboxApp using SpringBoot + Cassandra
 # Requirements
 Similar to any Email App but not using any SMTP Server. More of messages to internal users.
+Authentication Done using Github OAuth
+
+#How to Setup and Run
+1. You need to setup the connection to Cassandra DB hosted on DataStax Astra
+	a. Create a database through DataStax Astra console with keyspace-name as "main"
+	b. Go to the database page and generate a token selecting an apt user role.
+	c. Once you create a token put the following values from the token into the application.yml file
+		i.   spring.data.cassandra.username = Client Id
+		ii.  spring.data.cassandra.password = Client Secret
+		iii. astra.db.id = databaseId found on the database page
+		iv.  astra.db.region = region you selected while creating the database instance
+		v.   astra.db.application.token = Token value generated.
+	d. Download the bundle from database(inbox-app) -> Connect -> Drivers -> Select Java -> Download Bundle
+	   and save it in the location src\main\resources
+2. Generate ClientID and Client Secret from GitHub and update the values in application.yml file
+   Refer this -> https://episyche.com/blog/how-to-create-oauth-client-id-and-client-secret-for-github
+3. Build and Run the project.
 
 Functional Requirements
 1. Compose a message

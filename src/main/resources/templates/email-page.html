@@ -51,7 +51,7 @@
 <body>
 <div class="container">
     <header>
-        <h1> Hello, Name </h1>
+        <h1> Inbox App </h1>
     </header>
 
     <nav>
@@ -72,6 +72,15 @@
                     <dd th:text="${toIds}"></dd>
                     <dt>Subject</dt>
                     <dd th:text="${email.subject}"></dd>
+                    <dt>Attachments</dt>
+                    <div th:if="${email.attachments}" class="btn-group" th:each="attachment : ${email.attachments}">
+                        <button th:text="${attachment}" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" th:text="Download" th:href="@{'/download/' + ${email.id}}"></a>
+                        </ul>
+                    </div>
+                    <p th:if="${email.attachments == null}" class="fst-italic">No Attachments</p>
                     <dt>Body</dt>
                     <dd th:text="${email.body}"></dd>
                 </dl>
@@ -80,7 +89,7 @@
                     <a th:href="@{'/compose/?to=' + ${toIds} + ', ' + ${email.from}}" class="btn btn-primary" type="button">Reply All</a>
                     <button data-bs-toggle="modal" data-bs-target="#moveFolderModal" class="btn btn-primary me-md-2" type="button">Move Email</button>
                 </div>
-                <div class="modal fade" id="moveFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div th:if="${folderName} neq 'Sent Items'" class="modal fade" id="moveFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">

@@ -9,6 +9,7 @@ import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+
 import java.util.List;
 import java.util.UUID;
 
@@ -29,4 +30,7 @@ public class Email {
     private String subject;
     @CassandraType(type = CassandraType.Name.TEXT)
     private String body;
+    @CassandraType(type = CassandraType.Name.LIST, typeArguments = CassandraType.Name.TEXT)
+    private List<String> attachments;
+
 }

@@ -2,9 +2,9 @@ spring:
   data:
     cassandra:
       keyspace-name: main
-      username:
-      password: 
-      schema-action: recreate-drop-unused
+      username: #Client Id from the generated token
+      password: #Client Secret from the generated token
+      schema-action: recreate-drop-unused #CREATE_IF_NOT_EXISTS if you want to keep the data in the hosted db instance
       request:
         timeout: 10s
       connection:
@@ -12,19 +12,25 @@ spring:
         init-query-timeout: 10s
   application:
     name: inboxapp
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 25MB
+      max-request-size: 30MB
   security:
     oauth2:
       client:
         registration:
           github:
-            client-id: <client-id>
-            client-secret: <client-secret>
+            client-id: #Client ID of GitHub
+            client-secret: #Client Secret of GitHub
 astra:
   db:
-    id: 820a1637-bc91-4aa9-aa4a-e2565c04c6c8-1
-    region: asia-south1
+    id: #Database ID found on database page of https://astra.datastax.com/
+    region: #region you selected while creating the database instance
     keyspace: main
     application:
-      token: AstraCS:ZCMDxbcORiXWnZOSnxICAgvd:1b0dd10d200d65fa25e4505081256c36fc2b2a3697d88f18339180d81ed31215
+      token: #Token value generated
 datastax.astra:
-  secure-connect-bundle: connect.zip
+  secure-connect-bundle: connect.zip #Download the bundle from database(inbox-app) -> Connect -> Drivers -> Select Java -> Download Bundle

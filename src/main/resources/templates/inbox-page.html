@@ -51,16 +51,14 @@
 <body>
     <div class="container">
         <header>
-            <h1> Inbox App </h1>
-<!--            <div class="dropdown" style="float: right;" >-->
-<!--                <button class="btn btn-secondary dropdown-toggle" type="button" id="login" data-bs-toggle="dropdown" th:text = "${userId}">-->
-<!--                </button>-->
-<!--                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="login">-->
-<!--                    <li><a class="dropdown-item active" href="#">Action</a></li>-->
-<!--                    <li><a class="dropdown-item" href="#">Another action</a></li>-->
-<!--                    <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-<!--                </ul>-->
-<!--            </div>-->
+                <h3 class="fs-4 align-middle float-start"> Inbox App </h3>
+                <div class="dropdown">
+                    <button class="btn bg-transparent dropdown-toggle float-end" type="button" id="login" data-bs-toggle="dropdown" th:text = "${userId}">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="login">
+                        <li><a class="dropdown-item active" href="#">Logout</a></li>
+                    </ul>
+                </div>
         </header>
 
         <nav>
